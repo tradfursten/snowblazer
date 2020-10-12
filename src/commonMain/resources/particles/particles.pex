@@ -1,0 +1,39 @@
+<particleEmitterConfig>
+	<texture name="../graphics/snow.png"/>
+	<sourcePosition x="0.0" y="0.0"/>
+	<sourcePositionVariance x="800.01" y="50.0"/>
+	<speed value="85.0"/>
+	<speedVariance value="0.0"/>
+	<particleLifeSpan value="3.74"/>
+	<particleLifespanVariance value="8.88"/>
+	<angle value="240.0"/>
+	<angleVariance value="27.0"/>
+	<gravity x="7.0" y="38.0"/>
+	<radialAcceleration value="0.0"/>
+	<radialAccelVariance value="0.0"/>
+	<tangentialAcceleration value="0.0"/>
+	<tangentialAccelVariance value="0.0"/>
+	<startColor red="1.0" green="1.0" blue="1.0" alpha="1.0"/>
+	<startColorVariance red="0.0" green="0.0" blue="0.0" alpha="0.0"/>
+	<finishColor red="1.0" green="1.0" blue="1.0" alpha="0.19"/>
+	<finishColorVariance red="0.0" green="0.0" blue="0.0" alpha="0.24"/>
+	<maxParticles value="512"/>
+	<startParticleSize value="5.0"/>
+	<startParticleSizeVariance value="16.0"/>
+	<finishParticleSize value="5.0"/>
+	<FinishParticleSizeVariance value="25.0"/>
+	<duration value="-1.0"/>
+	<emitterType value="0"/>
+	<maxRadius value="80.0"/>
+	<maxRadiusVariance value="0.0"/>
+	<minRadius value="0.0"/>
+	<minRadiusVariance value="0.0"/>
+	<rotatePerSecond value="0.0"/>
+	<rotatePerSecondVariance value="0.0"/>
+	<blendFuncSource value="770"/>
+	<blendFuncDestination value="1"/>
+	<rotationStart value="0.0"/>
+	<rotationStartVariance value="0.0"/>
+	<rotationEnd value="0.0"/>
+	<rotationEndVariance value="0.0"/>
+</particleEmitterConfig>
