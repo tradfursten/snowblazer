@@ -1,11 +1,17 @@
 package scenes
 
+import com.soywiz.klock.seconds
 import com.soywiz.klock.timesPerSecond
+import com.soywiz.korau.sound.NativeSound
+import com.soywiz.korau.sound.NativeSoundChannel
+import com.soywiz.korau.sound.readMusic
 import com.soywiz.korge.input.onUp
 import com.soywiz.korge.particle.ParticleEmitter
 import com.soywiz.korge.particle.particleEmitter
 import com.soywiz.korge.particle.readParticle
 import com.soywiz.korge.scene.Scene
+import com.soywiz.korge.tween.get
+import com.soywiz.korge.tween.tween
 import com.soywiz.korge.view.*
 import com.soywiz.korim.bitmap.Bitmap
 import com.soywiz.korim.bitmap.slice
@@ -22,7 +28,6 @@ val tileSize = 16
 val snowRate = 0.2
 val xOffset = 192
 val yOffset = 110
-val debug = false
 
 val nrRows = 10
 val nrCols = 16
@@ -31,12 +36,15 @@ lateinit var sprites: Array<Array<SpriteAnimation>>
 lateinit var tiles: Bitmap
 
 class Level1() : Scene() {
+    private lateinit var bgMusic: NativeSoundChannel
+    private lateinit var background: Image
+    var start = false
     override suspend fun Container.sceneInit() {
         font = resourcesVfs["clear_sans.fnt"].readBitmapFont()
         tiles = resourcesVfs["graphics/tileset_2.png"].readBitmap()
-        val background = resourcesVfs["graphics/background.png"].readBitmap()
-        image(background)
-        var start = false
+        background = image(resourcesVfs["graphics/background.png"].readBitmap()) {
+            smoothing = false
+        }
 
         val level1TL = SpriteAnimation(tiles,16, 16, 0,0,1,1,0)
         val level1TC = SpriteAnimation(tiles,16, 16, 0,16,1,1,0)
@@ -78,10 +86,10 @@ class Level1() : Scene() {
                     if (Random.nextFloat() < snowRate && start) {
                         this.depth = this.depth + snowRate
                         this.computeColor(
-                                if (this.posX == 0) this.depth else snowTiles[this.posY][this.posX-1].depth,
-                                if (this.posX == nrCols - 1) this.depth else snowTiles[this.posY][this.posX+1].depth,
-                                if (this.posY == 0) this.depth else snowTiles[this.posY - 1][this.posX].depth,
-                                if (this.posY == nrRows - 1) this.depth else snowTiles[this.posY + 1][this.posX].depth)
+                                if (this.posX == 0) -1.0 else snowTiles[this.posY][this.posX-1].depth,
+                                if (this.posX == nrCols - 1) -1.0 else snowTiles[this.posY][this.posX+1].depth,
+                                if (this.posY == 0) -1.0 else snowTiles[this.posY - 1][this.posX].depth,
+                                if (this.posY == nrRows - 1) -1.0 else snowTiles[this.posY + 1][this.posX].depth)
                     }
                 }
 
@@ -110,8 +118,13 @@ class Level1() : Scene() {
         particleEmitter(emitter)
                 .position(views.virtualWidth * 0.5, -(views.virtualHeight * 0.75))
 
+    }
 
-
+    override suspend fun sceneAfterInit() {
+        super.sceneAfterInit()
+        bgMusic = resourcesVfs["sounds/sc.mp3"].readMusic().playForever()
+        bgMusic.volume = 0.0
+        sceneContainer.tween(bgMusic::volume[0.8], time = 1.5.seconds)
         start = true
     }
 }

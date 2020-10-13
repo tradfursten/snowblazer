@@ -6,17 +6,10 @@ class SnowTile(val posX: Int, val posY: Int, var depth: Double): Container() {
     lateinit var text: Text
     val x_: Int
     val y_: Int
-    //val s: Array<Sprite>
     val s: Sprite
     init {
         x_ = xOffset + (posX*tileSize)
         y_ = yOffset + (posY*tileSize)
-        //todo fix array of array of sprites
-        /*s = arrayOf(sprite(sprites[0][0]).xy(x_, y_).visible(false),
-                sprites[1].map { sprite(it)}, //.xy(x_, y_).visible(false) },
-                sprite(sprites[2][0]).xy(x_, y_).visible(false))
-
-         */
         s = sprite(sprites[0][4]).xy(x_, y_)
     }
 
@@ -54,7 +47,7 @@ class SnowTile(val posX: Int, val posY: Int, var depth: Double): Container() {
             in 0.0..25.0 -> 0
             in 25.0..50.0 -> 1
             in 50.0..Double.MAX_VALUE-> 2
-            else -> 0
+            else -> 3
         }
     }
 }
