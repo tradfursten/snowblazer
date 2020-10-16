@@ -73,10 +73,20 @@ class Level1() : Scene() {
         val level3DL = SpriteAnimation(tiles,16, 16, 32,96,1,1,0)
         val level3DC = SpriteAnimation(tiles,16, 16, 32,112,1,1,0)
         val level3DR = SpriteAnimation(tiles,16, 16, 32,128,1,1,0)
+        val level4TL = SpriteAnimation(tiles,16, 16, 0,144,1,1,0)
+        val level4TC = SpriteAnimation(tiles,16, 16, 0,160,1,1,0)
+        val level4TR = SpriteAnimation(tiles,16, 16, 0,176,1,1,0)
+        val level4CL = SpriteAnimation(tiles,16, 16, 16,144,1,1,0)
+        val level4CC = SpriteAnimation(tiles,16, 16, 16,160,1,1,0)
+        val level4CR = SpriteAnimation(tiles,16, 16, 16,176,1,1,0)
+        val level4DL = SpriteAnimation(tiles,16, 16, 32,144,1,1,0)
+        val level4DC = SpriteAnimation(tiles,16, 16, 32,160,1,1,0)
+        val level4DR = SpriteAnimation(tiles,16, 16, 32,176,1,1,0)
 
         sprites = arrayOf( arrayOf(level1TL, level1TC, level1TR, level1CL, level1CC, level1CR, level1DL, level1DC, level1DR),
                 arrayOf(level2TL, level2TC, level2TR, level2CL, level2CC, level2CR, level2DL, level2DC, level2DR),
-                arrayOf(level3TL, level3TC, level3TR, level3CL, level3CC, level3CR, level3DL, level3DC, level3DR))
+                arrayOf(level3TL, level3TC, level3TR, level3CL, level3CC, level3CR, level3DL, level3DC, level3DR),
+                arrayOf(level4TL, level4TC, level4TR, level4CL, level4CC, level4CR, level4DL, level4DC, level4DR))
 
         val snowTiles = Array(nrRows) {i -> Array(nrCols) {j -> SnowTile(j, i, 0.0)} }
         for(y in 0 until nrRows) {
@@ -85,12 +95,12 @@ class Level1() : Scene() {
                 tile.addFixedUpdater(60.timesPerSecond) {
                     if (Random.nextFloat() < snowRate && start) {
                         this.depth = this.depth + snowRate
-                        this.computeColor(
-                                if (this.posX == 0) -1.0 else snowTiles[this.posY][this.posX-1].depth,
-                                if (this.posX == nrCols - 1) -1.0 else snowTiles[this.posY][this.posX+1].depth,
-                                if (this.posY == 0) -1.0 else snowTiles[this.posY - 1][this.posX].depth,
-                                if (this.posY == nrRows - 1) -1.0 else snowTiles[this.posY + 1][this.posX].depth)
                     }
+                    this.computeColor(
+                            if (this.posX == 0) -1.0 else snowTiles[this.posY][this.posX-1].depth,
+                            if (this.posX == nrCols - 1) -1.0 else snowTiles[this.posY][this.posX+1].depth,
+                            if (this.posY == 0) -1.0 else snowTiles[this.posY - 1][this.posX].depth,
+                            if (this.posY == nrRows - 1) -1.0 else snowTiles[this.posY + 1][this.posX].depth)
                 }
 
                 tile.onUp {
