@@ -59,4 +59,8 @@ class SnowTile(val posX: Int, val posY: Int, var depth: Double): Container() {
             else -> 0
         }
     }
+
+    fun clearSnow() {
+        if (level != 3) depth = 0.0
+    }
 }

@@ -1,18 +1,17 @@
+import com.soywiz.korau.sound.NativeSoundChannel
+import com.soywiz.korau.sound.PlaybackTimes
+import com.soywiz.korau.sound.readMusic
 import com.soywiz.korge.*
 import com.soywiz.korge.scene.Module
 import com.soywiz.korge.scene.Scene
-import com.soywiz.korge.view.SpriteAnimation
-import com.soywiz.korim.bitmap.Bitmap
 import com.soywiz.korim.color.Colors
 import com.soywiz.korim.color.RGBA
-import com.soywiz.korim.font.BitmapFont
 import com.soywiz.korinject.AsyncInjector
-import com.soywiz.korio.async.ObservableProperty
+import com.soywiz.korio.file.std.resourcesVfs
 import com.soywiz.korma.geom.ScaleMode
 import com.soywiz.korma.geom.SizeInt
 import scenes.Level1
 import scenes.Title
-import kotlin.properties.Delegates
 import kotlin.reflect.KClass
 
 suspend fun main() = Korge(Korge.Config(module = MyModule))
@@ -32,7 +31,12 @@ object MyModule : Module() {
 
 
 	override suspend fun AsyncInjector.configure() {
-		mapPrototype { Title() }
-		mapPrototype { Level1() }
+		mapInstance(Dependency(resourcesVfs["sounds/Snow Blazer2.mp3"]
+				.readMusic()
+				.play(PlaybackTimes.INFINITE)))
+		mapPrototype { Title(get()) }
+		mapPrototype { Level1(get()) }
 	}
 }
+
+class Dependency(var channel: NativeSoundChannel)
