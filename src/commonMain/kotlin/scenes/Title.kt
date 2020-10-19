@@ -13,6 +13,7 @@ import com.soywiz.korma.interpolation.Easing
 import com.soywiz.klock.seconds
 import com.soywiz.korau.sound.PlaybackTimes
 import com.soywiz.korau.sound.readMusic
+import com.soywiz.korge.input.onUp
 import com.soywiz.korim.color.Colors
 import com.soywiz.korim.font.BitmapFont
 import com.soywiz.korim.font.readBitmapFont
@@ -24,32 +25,40 @@ class Title(val dependency: Dependency) : Scene() {
     private lateinit var title: Image
     private lateinit var t: Text
 
+    private lateinit var skipText: Text
+
 
     override suspend fun Container.sceneInit() {
+        val fontTTF = resourcesVfs["lunchds.ttf"].readTtfFont()
+        font = BitmapFont(
+                fontTTF, 64.0,
+                paint = LinearGradientPaint(0, 0, 0, 50).add(0.0, Colors["#f6fcff"]).add(1.0, Colors["#99e7e4"])
+        )
+        skipText = text("SKIP", font = font) {
+            x = 500.0
+            y = 250.0
+            alpha = 0.0
+        }
+        skipText.onUp {
+            sceneContainer.changeTo<Level1>()
+        }
         title = image(resourcesVfs["graphics/title.png"].readBitmap()) {
             scale = 5.0
             smoothing = false
             y = 20.0
             x = 640.0
         }
-        onClick {
-            sceneContainer.changeTo<Level1>()
-        }
 
-        val fontTTF = resourcesVfs["lunchds.ttf"].readTtfFont()
-        font = BitmapFont(
-                fontTTF, 64.0,
-                paint = LinearGradientPaint(0, 0, 0, 50).add(0.0, Colors["#f6fcff"]).add(1.0, Colors["#99e7e4"])
-        )
         t = text("", font = font) {
             x = 120.0
             y = 120.0
         }
-
     }
+
     override suspend fun sceneAfterInit() {
         delay(2.seconds)
         title.tween(title::x[640, -1200], time = TimeSpan(8000.0), easing = Easing.LINEAR)
+        skipText.tween(skipText::alpha[0.0, 1.0], time= TimeSpan(500.0), easing = Easing.LINEAR)
         delay(1.seconds)
         title.scale = 20.0
         title.x = -1200.0
@@ -63,7 +72,10 @@ COVERD BY THE MIGHTY GIFTS OF THE GODS."""
         delay(4.seconds)
         t._text = """
             Every day was a peril for the inhabitants
-            fighting 
-        """.trimIndent()
+            fighting the ever falling snow
+            trying to get to work
+        """.toUpperCase().trimIndent()
+
+        skipText._text = "START"
     }
 }

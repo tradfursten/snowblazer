@@ -10,6 +10,7 @@ import com.soywiz.korinject.AsyncInjector
 import com.soywiz.korio.file.std.resourcesVfs
 import com.soywiz.korma.geom.ScaleMode
 import com.soywiz.korma.geom.SizeInt
+import scenes.GameOver
 import scenes.Level1
 import scenes.Title
 import kotlin.reflect.KClass
@@ -36,6 +37,7 @@ object MyModule : Module() {
 				.play(PlaybackTimes.INFINITE)))
 		mapPrototype { Title(get()) }
 		mapPrototype { Level1(get()) }
+		mapPrototype { GameOver() }
 	}
 }
 

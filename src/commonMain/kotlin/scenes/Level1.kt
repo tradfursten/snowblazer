@@ -21,7 +21,9 @@ import com.soywiz.korim.font.BitmapFont
 import com.soywiz.korim.font.readBitmapFont
 import com.soywiz.korim.format.readBitmap
 import com.soywiz.korio.async.ObservableProperty
+import com.soywiz.korio.async.launchImmediately
 import com.soywiz.korio.file.std.resourcesVfs
+import kotlinx.coroutines.GlobalScope
 import kotlin.properties.Delegates
 import kotlin.random.Random
 var font: BitmapFont by Delegates.notNull()
@@ -120,7 +122,11 @@ class Level1(val dependency: Dependency) : Scene() {
         }
 
         this.addFixedUpdater(60.timesPerSecond) {
-           if( snowTiles.all { it.all { it.level == 3}}) println("Game over")
+           if( snowTiles.all { it.all { it.level == 3}}) {
+               launchImmediately {
+                   sceneContainer.changeTo<GameOver>()
+               }
+           }
         }
 
 
