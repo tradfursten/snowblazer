@@ -5,6 +5,7 @@ import com.soywiz.korge.tween.*
 import com.soywiz.korge.view.*
 import com.soywiz.korim.color.*
 import com.soywiz.korma.geom.*
+import scenes.SnowTile
 import kotlin.test.*
 
 class MyTest : ViewsForTesting() {
@@ -22,5 +23,18 @@ class MyTest : ViewsForTesting() {
 		assertEquals(Rectangle(x=-102, y=0, width=100, height=100), rect.globalBounds)
 		assertEquals(false, rect.isVisibleToUser())
 		assertEquals(listOf("clicked"), log)
+	}
+
+	@Test
+	fun testSnowTile() {
+		val sut = SnowTile(0, 0, 0.0);
+		sut.computeColor(25.0, 25.0, 25.0, 25.0)
+		assertEquals(11, sut.i)
+
+		sut.computeColor(0.0, 0.0, 25.0, 25.0)
+		assertEquals(9, sut.i)
+
+		sut.computeColor(25.0, 25.0, 0.0, 0.0)
+		assertEquals(10, sut.i)
 	}
 }

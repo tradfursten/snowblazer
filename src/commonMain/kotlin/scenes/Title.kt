@@ -57,14 +57,14 @@ class Title(val dependency: Dependency) : Scene() {
 
     override suspend fun sceneAfterInit() {
         delay(2.seconds)
-        title.tween(title::x[640, -1200], time = TimeSpan(8000.0), easing = Easing.LINEAR)
         skipText.tween(skipText::alpha[0.0, 1.0], time= TimeSpan(500.0), easing = Easing.LINEAR)
+        title.tween(title::x[640, -1200], time = TimeSpan(5000.0), easing = Easing.LINEAR)
         delay(1.seconds)
         title.scale = 20.0
         title.x = -1200.0
         title.tween(title::scale[20.0, 2.0],
                 title::x[-1200.0, 100.0],
-                time = 4.seconds,
+                time = 3.seconds,
                 easing = Easing.LINEAR)
         t._text = """WISE MAN TELL A TALE LATE AT NIGHT OF 
 A GREAT LAND THAT EACH WINTER GOT 

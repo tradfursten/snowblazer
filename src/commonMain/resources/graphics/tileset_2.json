@@ -1,0 +1,26 @@
+{ "frames": {
+   "tileset_2.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 192, "h": 96 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 192, "h": 96 },
+    "sourceSize": { "w": 192, "h": 96 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.25",
+  "image": "tileset_2b.png",
+  "format": "RGBA8888",
+  "size": { "w": 192, "h": 96 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
